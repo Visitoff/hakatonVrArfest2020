@@ -7,12 +7,8 @@ using UnityEngine.SceneManagement;
 public class LoadScreen : MonoBehaviour
 {
     public int ScenarioMode = 1;
-    void Start()
-    {
-        
-    }
 
-     void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))//критические ошибки
         {

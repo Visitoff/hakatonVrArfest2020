@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.XR;
 using Photon.Pun;
@@ -10,6 +9,9 @@ class NetworkPlayer : MonoBehaviour
     public Transform head;
     public Transform rightHand;
     public Transform leftHand;
+    private Transform headRig;
+    private Transform leftHandRig;
+    private Transform rightHandRig;
     void Start()
     {
         photonView = GetComponent<PhotonView>();

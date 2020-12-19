@@ -27,7 +27,6 @@ public class ScenaroiForNet : MonoBehaviour
     
     void Update()
     {
-        
     }
     IEnumerator First()
     {
@@ -40,8 +39,7 @@ public class ScenaroiForNet : MonoBehaviour
         playerObject.transform.position = teleportTarget.transform.position;
         yield return new WaitWhile(() => !handClick.telepotrToKitchen);
         playerObject.transform.position = teleportKitchen.transform.position;
-        yield return new WaitForSeconds (5f);
-        Time.timeScale = 0;
+        
     }
     
 }

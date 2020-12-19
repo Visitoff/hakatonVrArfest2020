@@ -1,19 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Valve.VR;
 
 public class Scenario : MonoBehaviour
 {
-    public Texture screen1;
-    public Texture screen2;
-    public Texture screen3;
-    public Texture screen4;
-    public Texture screen5;
-    public Texture screen6;
-    public Texture screen7;
-
-    public List<GameObject> errorScreens;
-    public List<Texture> errorScrMat;
+    [SerializeField]
+    GameObject hint1;
+    [SerializeField]
+    GameObject hint2;
+    [SerializeField]
+    GameObject hint3;
     [SerializeField]
     GameObject checkBar;
     [SerializeField]
@@ -27,50 +24,56 @@ public class Scenario : MonoBehaviour
     [SerializeField]
     Transform player;
     [SerializeField]
-    public HandClick handClick;
-    public Material image1;
-    public Material image2;
-    public Material image3;
-    public Material image4;
-    public Material image5;
-    public Material image6;
-    public Material imageCrtError;
-    public Material imageError;
-    public Texture errscreen;
+    HandClick handClick;
+    [SerializeField]
+    Material image1;
+    [SerializeField]
+    Material image2;
+    [SerializeField]
+    Material image3;
+    [SerializeField]
+    Material image4;
+    [SerializeField]
+    Material image5;
+    [SerializeField]
+    Material image6;
+    [SerializeField]
+    Material imageCrtError;
+    [SerializeField]
+    Material imageError;
     float a = 0f;
-   public LoadScreen ld;
-    
-    //Извиняюсь перед всеми программистами кто это читает:), 
+    public LoadScreen ld;
+
+    //Извиняюсь перед всеми программистами кто это читает:)
     void Start()
     {
         player.transform.position = teleportTarget.transform.position;
         StartCoroutine(First());
-        if (ld.ScenarioMode == 3)
-        {
-            handClick.weaponReady = true;
-            handClick.teleportToCabinet = true;
-            handClick.cabTask = true;
-
-        }
     }
 
     void FixedUpdate()
     {
+        if (ld.ScenarioMode == 1)
+        {
+            hint1.SetActive(false);
+            hint2.SetActive(false);
+            hint3.SetActive(false);
+        }
         if (ld.ScenarioMode == 3)
         {
             handClick.weaponReady = true;
             handClick.teleportToCabinet = true;
             handClick.cabTask = true;
         }
-            if (Input.GetKeyDown(KeyCode.W))//обучение
+        if (Input.GetKeyDown(KeyCode.W))//обучение
         {
-           ld.ScenarioMode = 2;
-            
+            ld.ScenarioMode = 2;
+
         }
         if (Input.GetKeyDown(KeyCode.E))//эвакуация 
         {
-           ld.ScenarioMode = 3;
-            
+            ld.ScenarioMode = 3;
+
         }
         if (ld.ScenarioMode == 2 && handClick.error)
         {
@@ -81,35 +84,7 @@ public class Scenario : MonoBehaviour
                 handClick.error = false;
 
             }
-
         }
-        // if (ScenarioMode == 3)
-        // {
-        /*
-             screen1 = Material.SetTexture( "Scren4",errscreen);
-            screen2 = errscreen;
-            screen3 = errscreen;
-            screen4 = errscreen;
-            screen5 = errscreen;
-            screen6 = errscreen;
-            screen7 = errscreen;*/
-          /*  foreach (GameObject gameobject in errorScreens)
-            {
-                Material[] mats ;
-
-                mats = gameObject.GetComponent<Renderer>().sharedMaterials;
-
-                mats[0] = errscreen;
-                mats[1] = errscreen;
-                mats[2] = errscreen;
-                mats[3] = errscreen;
-                mats[4] = errscreen;
-                gameobject.GetComponent<Renderer>().sharedMaterials = mats;
-
-            }*/
-            //Извиняюсь перед всеми кто это читает:)
-
-      // }
         if (ld.ScenarioMode == 1 && handClick.error)
         {
             a += Time.deltaTime;
@@ -119,6 +94,11 @@ public class Scenario : MonoBehaviour
                 Time.timeScale = 0f;
             }
 
+        }
+        if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.RightHand))
+        {
+
+            SceneManager.LoadScene("LoadScreen", LoadSceneMode.Single);
         }
     }
     IEnumerator First()
@@ -137,5 +117,7 @@ public class Scenario : MonoBehaviour
         yield return new WaitWhile(() => !handClick.telepotrToKitchen);
         player.transform.position = teleportKitchen.transform.position;
         checkBar.GetComponent<MeshRenderer>().material = image6;
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("LoadScreen", LoadSceneMode.Single);
     }
 }
