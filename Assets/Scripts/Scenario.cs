@@ -5,6 +5,11 @@ using Valve.VR;
 
 public class Scenario : MonoBehaviour
 {
+
+    [SerializeField]
+    GameObject hintToKitch;
+    [SerializeField]
+    GameObject hintTocab;
     [SerializeField]
     GameObject hint1;
     [SerializeField]
@@ -19,6 +24,8 @@ public class Scenario : MonoBehaviour
     Transform teleportTarget;
     [SerializeField]
     Transform teleportToCab;
+    [SerializeField]
+    Transform teleportFromCab;
     [SerializeField]
     Transform cabinet;
     [SerializeField]
@@ -47,6 +54,7 @@ public class Scenario : MonoBehaviour
     //Извиняюсь перед всеми программистами кто это читает:)
     void Start()
     {
+        hintToKitch.SetActive(false);
         player.transform.position = teleportTarget.transform.position;
         StartCoroutine(First());
     }
@@ -65,16 +73,7 @@ public class Scenario : MonoBehaviour
             handClick.teleportToCabinet = true;
             handClick.cabTask = true;
         }
-        if (Input.GetKeyDown(KeyCode.W))//обучение
-        {
-            ld.ScenarioMode = 2;
-
-        }
-        if (Input.GetKeyDown(KeyCode.E))//эвакуация 
-        {
-            ld.ScenarioMode = 3;
-
-        }
+       
         if (ld.ScenarioMode == 2 && handClick.error)
         {
             a += Time.deltaTime;
@@ -113,7 +112,9 @@ public class Scenario : MonoBehaviour
         checkBar.GetComponent<MeshRenderer>().material = image3;
         yield return new WaitWhile(() => !handClick.teleportBack);
         checkBar.GetComponent<MeshRenderer>().material = image4;
-        player.transform.position = teleportTarget.transform.position;
+        player.transform.position = teleportFromCab.transform.position;
+        hintTocab.SetActive(false);
+        hintToKitch.SetActive(true);
         yield return new WaitWhile(() => !handClick.telepotrToKitchen);
         player.transform.position = teleportKitchen.transform.position;
         checkBar.GetComponent<MeshRenderer>().material = image6;
