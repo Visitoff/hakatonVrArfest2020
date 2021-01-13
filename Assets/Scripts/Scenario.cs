@@ -49,32 +49,42 @@ public class Scenario : MonoBehaviour
     [SerializeField]
     Material imageError;
     float a = 0f;
+    float timeOfGame = 0f;
     public LoadScreen ld;
+    float newScenarioMode;
 
     //Извиняюсь перед всеми программистами кто это читает:)
-    void Start()
+    private void Awake()
     {
         hintToKitch.SetActive(false);
         player.transform.position = teleportTarget.transform.position;
         StartCoroutine(First());
+        GameObject objs = GameObject.FindGameObjectWithTag("param");
+        newScenarioMode = objs.GetComponent<LoadScreen>().ScenarioMode;
+        Destroy(objs);
     }
+    
+    
 
     void FixedUpdate()
     {
-        if (ld.ScenarioMode == 1)
+        
+       
+
+        if (newScenarioMode == 1)
         {
             hint1.SetActive(false);
             hint2.SetActive(false);
             hint3.SetActive(false);
         }
-        if (ld.ScenarioMode == 3)
+        if (newScenarioMode == 3)
         {
             handClick.weaponReady = true;
             handClick.teleportToCabinet = true;
             handClick.cabTask = true;
         }
-       
-        if (ld.ScenarioMode == 2 && handClick.error)
+
+        if (newScenarioMode == 2 && handClick.error)
         {
             a += Time.deltaTime;
             checkBar.GetComponent<MeshRenderer>().material = imageError;
@@ -84,7 +94,7 @@ public class Scenario : MonoBehaviour
 
             }
         }
-        if (ld.ScenarioMode == 1 && handClick.error)
+        if (newScenarioMode == 1 && handClick.error)
         {
             a += Time.deltaTime;
             checkBar.GetComponent<MeshRenderer>().material = imageCrtError;
@@ -120,5 +130,9 @@ public class Scenario : MonoBehaviour
         checkBar.GetComponent<MeshRenderer>().material = image6;
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("LoadScreen", LoadSceneMode.Single);
+    }
+    void Update()
+    {
+        a += 1 * Time.deltaTime;
     }
 }

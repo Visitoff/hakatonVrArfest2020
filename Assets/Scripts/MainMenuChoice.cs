@@ -6,6 +6,14 @@ public class MainMenuChoice : MonoBehaviour
 {
     public int ScenarioMode = 1;
 
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag("param");
+
+
+
+        DontDestroyOnLoad(obj.gameObject);
+    }
     void Start()
     {
         

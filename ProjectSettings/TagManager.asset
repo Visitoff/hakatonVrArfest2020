@@ -20,6 +20,7 @@ TagManager:
   - evacuation
   - practice
   - exam
+  - param
   layers:
   - Default
   - TransparentFX
