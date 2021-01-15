@@ -9,9 +9,8 @@ public class MainMenuChoice : MonoBehaviour
     void Awake()
     {
         GameObject obj = GameObject.FindGameObjectWithTag("param");
-
-
-
+        GameObject steamPlayer = GameObject.FindGameObjectWithTag("Player");
+        Destroy(steamPlayer);
         DontDestroyOnLoad(obj.gameObject);
     }
     void Start()

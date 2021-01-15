@@ -3,17 +3,33 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using UnityEngine.SceneManagement;
 
 public class Sends : MonoBehaviour
 {
-    public void SendTest( string emailTest)
+    string currentEmail;
+    private void Awake()
     {
-        string body = "Анальный мудрец 2007";//Текст сообщения
+        DontDestroyOnLoad(gameObject);
+    }
+    public void ChangeEmail(string email)
+    {
+        currentEmail = email;
+    }
+
+    public void SendTest(Logs log )
+    {
+        string body = "";
+        foreach (var item in log.logs)
+        {
+            body += string.Format ("{0} \n", item);
+        }
+       // string body = "Анальный мудрец 2007";//Текст сообщения
         MailMessage message = new MailMessage();
         message.Subject = string.Format("");//Тема сообщения(Заголовок)
         message.Body = body;
         message.From = new MailAddress("kvantoriumtumentest@gmail.com");//От кого
-        message.To.Add(emailTest);//Кому
+        message.To.Add(currentEmail);//Кому
         message.BodyEncoding = System.Text.Encoding.UTF8;
         SmtpClient client = new SmtpClient();
         client.Host = "smtp.gmail.com";
@@ -27,4 +43,10 @@ public class Sends : MonoBehaviour
         client.Send(message);
         Debug.Log("Отправлено");
     }
+   
+    public void StartScene()
+    {
+        SceneManager.LoadScene("LoadScreen", LoadSceneMode.Single);
+    }
+    
 }

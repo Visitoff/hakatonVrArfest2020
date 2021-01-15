@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Valve.VR;
@@ -52,7 +54,8 @@ public class Scenario : MonoBehaviour
     float timeOfGame = 0f;
     public LoadScreen ld;
     float newScenarioMode;
-
+    Sends sendsScript;
+    Logs logs;
     //Извиняюсь перед всеми программистами кто это читает:)
     private void Awake()
     {
@@ -63,8 +66,11 @@ public class Scenario : MonoBehaviour
         newScenarioMode = objs.GetComponent<LoadScreen>().ScenarioMode;
         Destroy(objs);
     }
-    
-    
+
+    private void Start()
+    {
+        logs = new Logs();
+    }
 
     void FixedUpdate()
     {
@@ -114,11 +120,16 @@ public class Scenario : MonoBehaviour
     {
         yield return new WaitWhile(() => !handClick.weaponReady);
         checkBar.GetComponent<MeshRenderer>().material = image1;
+        logs.AddLog("Забрал жилет и каску");
         yield return new WaitWhile(() => !handClick.teleportToCabinet);
         checkBar.GetComponent<MeshRenderer>().material = image2;
         player.transform.position = cabinet.transform.position;
+        logs.AddLog("Переместился в кабинет");
+
         yield return new WaitWhile(() => !handClick.cabTask);
         Debug.Log("задания в каморке");
+        logs.AddLog("Успешно выполнил задания в комнате ");
+
         checkBar.GetComponent<MeshRenderer>().material = image3;
         yield return new WaitWhile(() => !handClick.teleportBack);
         checkBar.GetComponent<MeshRenderer>().material = image4;
@@ -128,11 +139,33 @@ public class Scenario : MonoBehaviour
         yield return new WaitWhile(() => !handClick.telepotrToKitchen);
         player.transform.position = teleportKitchen.transform.position;
         checkBar.GetComponent<MeshRenderer>().material = image6;
-        yield return new WaitForSeconds(5f);
+        GameObject s = GameObject.FindGameObjectWithTag("param2");
+        sendsScript = s.GetComponent<Sends>();
+        logs.AddLog("Зашел на кухню");
+        logs.AddLog("Завершил все задания");
+
+
+        sendsScript.SendTest(logs);
+        yield return new WaitForSeconds(3f);
+
         SceneManager.LoadScene("LoadScreen", LoadSceneMode.Single);
     }
     void Update()
     {
         a += 1 * Time.deltaTime;
+    }
+}
+[Serializable]
+public class Logs
+{
+    public List<string> logs;
+    public Logs()
+    {
+        logs = new List<string>();
+    }
+    public void AddLog(string log)
+    {
+        logs.Add(log);
+
     }
 }

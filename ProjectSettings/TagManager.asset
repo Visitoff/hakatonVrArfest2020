@@ -21,6 +21,7 @@ TagManager:
   - practice
   - exam
   - param
+  - param2
   layers:
   - Default
   - TransparentFX
