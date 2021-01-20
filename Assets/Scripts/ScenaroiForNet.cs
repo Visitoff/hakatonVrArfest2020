@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun.Demo.PunBasics;
+using Photon.Pun;
 
-public class ScenaroiForNet : MonoBehaviour
+public class ScenaroiForNet : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     Transform teleportKitchen;
@@ -21,6 +23,19 @@ public class ScenaroiForNet : MonoBehaviour
 
     void Start()
     {
+        CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
+
+        if (_cameraWork != null)
+        {
+            if (photonView.IsMine)
+            {
+                _cameraWork.OnStartFollowing();
+            }
+        }
+        else
+        {
+            Debug.LogError("<Color=Red><b>Missing</b></Color> CameraWork Component on player Prefab.", this);
+        }
         playerObject.transform.position = teleportTarget.transform.position;
         StartCoroutine(First());
     }

@@ -56,6 +56,7 @@ public class Scenario : MonoBehaviour
     float newScenarioMode;
     Sends sendsScript;
     Logs logs;
+    Vector3 startPlayerPosition;
     //Извиняюсь перед всеми программистами кто это читает:)
     private void Awake()
     {
@@ -69,12 +70,17 @@ public class Scenario : MonoBehaviour
 
     private void Start()
     {
+        startPlayerPosition = player.transform.position;
         logs = new Logs();
+
     }
 
     void FixedUpdate()
     {
-        
+        if (SteamVR_Actions._default.Teleport.GetStateDown(SteamVR_Input_Sources.Any))
+        {
+
+        }
        
 
         if (newScenarioMode == 1)
@@ -110,6 +116,7 @@ public class Scenario : MonoBehaviour
             }
 
         }
+        
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
 
