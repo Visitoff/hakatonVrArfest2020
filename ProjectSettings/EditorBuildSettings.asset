@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LoadScreen.unity
     guid: 34f57410ec5bdb545b5afa775e3f1d55
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/newMP.unity
+    guid: b4444d694cf05c04eb181b09989f3e7e
   m_configObjects: {}

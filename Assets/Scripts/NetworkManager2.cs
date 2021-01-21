@@ -7,7 +7,11 @@ using Photon.Realtime;
 public class NetworkManager2 : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    GameObject pref;
+    GameObject headPrefab;
+    [SerializeField]
+    GameObject leftHandPrefab;
+    [SerializeField]
+    GameObject rightHandPrefab;
     void Start()
     {
         ConnectToServer();
@@ -17,7 +21,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Try Connecnt");
-    }
+    }   
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected");
@@ -31,8 +35,10 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined Room");
-        PhotonNetwork.Instantiate(pref.name,ViveController.Instance.head.position`
-            )
+        PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
+        PhotonNetwork.Instantiate(rightHandPrefab.name, ViveController.Instance.leftHand.transform.position, ViveController.Instance.leftHand.transform.rotation, 0);
+        PhotonNetwork.Instantiate(leftHandPrefab.name, ViveController.Instance.rightHand.transform.position, ViveController.Instance.rightHand.transform.rotation, 0);
+         
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
