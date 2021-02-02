@@ -10,11 +10,12 @@ using System.Collections;
 
 namespace Valve.VR.InteractionSystem
 {
-	//-------------------------------------------------------------------------
-	public class Teleport : MonoBehaviour
+    
+    //-------------------------------------------------------------------------
+    public class Teleport : MonoBehaviour
     {
+        
         public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
-
         public LayerMask traceLayerMask;
 		public LayerMask floorFixupTraceLayerMask;
 		public float floorFixupMaximumTraceDistance = 1.0f;
@@ -58,6 +59,7 @@ namespace Valve.VR.InteractionSystem
 		public AudioClip goodHighlightSound;
 		public AudioClip badHighlightSound;
 
+        
 		[Header( "Debug" )]
 		public bool debugFloor = false;
 		public bool showOffsetReticle = false;
@@ -141,7 +143,7 @@ namespace Valve.VR.InteractionSystem
 
 		//-------------------------------------------------
 		void Awake()
-        {
+        {   
             _instance = this;
 
 			chaperoneInfoInitializedAction = ChaperoneInfo.InitializedAction( OnChaperoneInfoInitialized );
@@ -176,7 +178,7 @@ namespace Valve.VR.InteractionSystem
             teleportMarkers = GameObject.FindObjectsOfType<TeleportMarkerBase>();
 
 			HidePointer();
-
+           
 			player = InteractionSystem.Player.instance;
 
 			if ( player == null )
@@ -185,8 +187,8 @@ namespace Valve.VR.InteractionSystem
 				Destroy( this.gameObject );
 				return;
 			}
-
-			CheckForSpawnPoint();
+            
+            CheckForSpawnPoint();
 
 			Invoke( "ShowTeleportHint", 5.0f );
 		}

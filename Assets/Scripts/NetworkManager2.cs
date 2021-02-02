@@ -11,9 +11,19 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject leftHandPrefab;
     [SerializeField]
+    GameObject TeleportPoint;
+    [SerializeField]
     GameObject rightHandPrefab;
     GameObject localPlayerPrefab;
     GameObject netPlayerPrefab;
+    float a = 1;
+    float timeToSpawnPlayer;
+    bool isTimeToSpawn;
+   public bool isNeedtoSpawn;
+    private void Awake()
+    {
+        TeleportPoint.SetActive(false);
+    }
     void Start()
     {
         ConnectToServer();
@@ -36,7 +46,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        float a = 1;
+        
         localPlayerPrefab = new GameObject("Player");
         netPlayerPrefab = new GameObject("NetPlayer");
         GameObject Head = PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
@@ -59,12 +69,24 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
                 netPlayerPrefab.tag = string.Format("netplayer");
                 break;
         }
-        a++; 
-        
+        a++;
+        isTimeToSpawn = true;
+       
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("A new player joined in room");
         base.OnPlayerEnteredRoom(newPlayer);
+    }
+    private void Update()
+    {
+        if (isTimeToSpawn)
+        {
+            timeToSpawnPlayer += Time.deltaTime;
+        }
+        if (timeToSpawnPlayer > 5f)
+        {
+            TeleportPoint.SetActive(true);
+        }
     }
 }
