@@ -12,6 +12,8 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     GameObject leftHandPrefab;
     [SerializeField]
     GameObject rightHandPrefab;
+    GameObject localPlayerPrefab;
+    GameObject netPlayerPrefab;
     void Start()
     {
         ConnectToServer();
@@ -21,7 +23,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Try Connecnt");
-    }   
+    }
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected");
@@ -34,11 +36,31 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined Room");
-        PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
-        PhotonNetwork.Instantiate(rightHandPrefab.name, ViveController.Instance.leftHand.transform.position, ViveController.Instance.leftHand.transform.rotation, 0);
-        PhotonNetwork.Instantiate(leftHandPrefab.name, ViveController.Instance.rightHand.transform.position, ViveController.Instance.rightHand.transform.rotation, 0);
-         
+        float a = 1;
+        localPlayerPrefab = new GameObject("Player");
+        netPlayerPrefab = new GameObject("NetPlayer");
+        GameObject Head = PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
+        GameObject RHand = PhotonNetwork.Instantiate(rightHandPrefab.name, ViveController.Instance.leftHand.transform.position, ViveController.Instance.leftHand.transform.rotation, 0);
+        GameObject LHand = PhotonNetwork.Instantiate(leftHandPrefab.name, ViveController.Instance.rightHand.transform.position, ViveController.Instance.rightHand.transform.rotation, 0);
+        switch (a)
+        {
+                  
+            case 1:
+                Debug.Log("Joined Room");
+                Head.transform.SetParent(localPlayerPrefab.transform, true);
+                RHand.transform.SetParent(localPlayerPrefab.transform, true);
+                LHand.transform.SetParent(localPlayerPrefab.transform, true);
+                localPlayerPrefab.tag = string.Format("Player");
+                break;
+            case 2:
+                Head.transform.SetParent(netPlayerPrefab.transform, true);
+                RHand.transform.SetParent(netPlayerPrefab.transform, true);
+                LHand.transform.SetParent(netPlayerPrefab.transform, true);
+                netPlayerPrefab.tag = string.Format("netplayer");
+                break;
+        }
+        a++; 
+        
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
