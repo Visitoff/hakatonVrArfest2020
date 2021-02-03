@@ -7,6 +7,9 @@ using Photon.Realtime;
 public class NetworkManager2 : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    GameObject cam;
+    
+    [SerializeField]
     GameObject headPrefab;
     [SerializeField]
     GameObject leftHandPrefab;
@@ -57,6 +60,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
                   
             case 1:
                 Debug.Log("Joined Room");
+                Head.GetComponent<Valve.VR.InteractionSystem.Player>().trackingOriginTransform = localPlayerPrefab.transform;
                 Head.transform.SetParent(localPlayerPrefab.transform, true);
                 RHand.transform.SetParent(localPlayerPrefab.transform, true);
                 LHand.transform.SetParent(localPlayerPrefab.transform, true);
@@ -69,9 +73,15 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
                 netPlayerPrefab.tag = string.Format("netplayer");
                 break;
         }
+        StartCoroutine(enumerator(Head));
         a++;
         isTimeToSpawn = true;
        
+    }
+    IEnumerator enumerator(GameObject Head)
+    {
+        yield return new WaitForSeconds(2f);
+        Head.transform.SetParent(localPlayerPrefab.transform, true);
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
