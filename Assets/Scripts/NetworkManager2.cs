@@ -6,8 +6,7 @@ using Photon.Realtime;
 
 public class NetworkManager2 : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    GameObject cam;
+    
     
     [SerializeField]
     GameObject headPrefab;
@@ -17,6 +16,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     GameObject TeleportPoint;
     [SerializeField]
     GameObject rightHandPrefab;
+    [SerializeField]
     GameObject localPlayerPrefab;
     GameObject netPlayerPrefab;
     float a = 1;
@@ -50,7 +50,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         
-        localPlayerPrefab = new GameObject("Player");
+        
         netPlayerPrefab = new GameObject("NetPlayer");
         GameObject Head = PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
         GameObject RHand = PhotonNetwork.Instantiate(rightHandPrefab.name, ViveController.Instance.leftHand.transform.position, ViveController.Instance.leftHand.transform.rotation, 0);
@@ -96,7 +96,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
         }
         if (timeToSpawnPlayer > 5f)
         {
-            TeleportPoint.SetActive(true);
+            TeleportPoint.SetActive(false);
         }
     }
 }

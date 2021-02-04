@@ -10,12 +10,11 @@ using System.Collections;
 
 namespace Valve.VR.InteractionSystem
 {
-    
-    //-------------------------------------------------------------------------
-    public class Teleport : MonoBehaviour
+	//-------------------------------------------------------------------------
+	public class Teleport : MonoBehaviour
     {
-        
         public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
+
         public LayerMask traceLayerMask;
 		public LayerMask floorFixupTraceLayerMask;
 		public float floorFixupMaximumTraceDistance = 1.0f;
@@ -59,7 +58,6 @@ namespace Valve.VR.InteractionSystem
 		public AudioClip goodHighlightSound;
 		public AudioClip badHighlightSound;
 
-        
 		[Header( "Debug" )]
 		public bool debugFloor = false;
 		public bool showOffsetReticle = false;
@@ -111,9 +109,8 @@ namespace Valve.VR.InteractionSystem
 
 		private Vector3 startingFeetOffset = Vector3.zero;
 		private bool movedFeetFarEnough = false;
-        public bool pizdec = false;
 
-        SteamVR_Events.Action chaperoneInfoInitializedAction;
+		SteamVR_Events.Action chaperoneInfoInitializedAction;
 
 		// Events
 
@@ -144,7 +141,7 @@ namespace Valve.VR.InteractionSystem
 
 		//-------------------------------------------------
 		void Awake()
-        {   
+        {
             _instance = this;
 
 			chaperoneInfoInitializedAction = ChaperoneInfo.InitializedAction( OnChaperoneInfoInitialized );
@@ -174,24 +171,22 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		IEnumerator Start()
+		void Start()
         {
-            yield return new WaitForSeconds(5);
-            pizdec = true;
             teleportMarkers = GameObject.FindObjectsOfType<TeleportMarkerBase>();
 
 			HidePointer();
-           
+
 			player = InteractionSystem.Player.instance;
 
 			if ( player == null )
 			{
 				Debug.LogError("<b>[SteamVR Interaction]</b> Teleport: No Player instance found in map.", this);
 				Destroy( this.gameObject );
-				//return;
+				return;
 			}
-            
-            CheckForSpawnPoint();
+
+			CheckForSpawnPoint();
 
 			Invoke( "ShowTeleportHint", 5.0f );
 		}
@@ -242,80 +237,76 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Update()
 		{
-            if (pizdec)
-            {
-                Hand oldPointerHand = pointerHand;
-                Hand newPointerHand = null;
+			Hand oldPointerHand = pointerHand;
+			Hand newPointerHand = null;
 
-                foreach (Hand hand in player.hands)
-                {
-                    if (visible)
-                    {
-                        if (WasTeleportButtonReleased(hand))
-                        {
-                            if (pointerHand == hand) //This is the pointer hand
-                            {
-                                TryTeleportPlayer();
-                            }
-                        }
-                    }
+			foreach ( Hand hand in player.hands )
+			{
+				if ( visible )
+				{
+					if ( WasTeleportButtonReleased( hand ) )
+					{
+						if ( pointerHand == hand ) //This is the pointer hand
+						{
+							TryTeleportPlayer();
+						}
+					}
+				}
 
-                    if (WasTeleportButtonPressed(hand))
-                    {
-                        newPointerHand = hand;
-                    }
-                }
+				if ( WasTeleportButtonPressed( hand ) )
+				{
+					newPointerHand = hand;
+				}
+			}
 
-                //If something is attached to the hand that is preventing teleport
-                if (allowTeleportWhileAttached && !allowTeleportWhileAttached.teleportAllowed)
-                {
-                    HidePointer();
-                }
-                else
-                {
-                    if (!visible && newPointerHand != null)
-                    {
-                        //Begin showing the pointer
-                        ShowPointer(newPointerHand, oldPointerHand);
-                    }
-                    else if (visible)
-                    {
-                        if (newPointerHand == null && !IsTeleportButtonDown(pointerHand))
-                        {
-                            //Hide the pointer
-                            HidePointer();
-                        }
-                        else if (newPointerHand != null)
-                        {
-                            //Move the pointer to a new hand
-                            ShowPointer(newPointerHand, oldPointerHand);
-                        }
-                    }
-                }
+			//If something is attached to the hand that is preventing teleport
+			if ( allowTeleportWhileAttached && !allowTeleportWhileAttached.teleportAllowed )
+			{
+				HidePointer();
+			}
+			else
+			{
+				if ( !visible && newPointerHand != null )
+				{
+					//Begin showing the pointer
+					ShowPointer( newPointerHand, oldPointerHand );
+				}
+				else if ( visible )
+				{
+					if ( newPointerHand == null && !IsTeleportButtonDown( pointerHand ) )
+					{
+						//Hide the pointer
+						HidePointer();
+					}
+					else if ( newPointerHand != null )
+					{
+						//Move the pointer to a new hand
+						ShowPointer( newPointerHand, oldPointerHand );
+					}
+				}
+			}
 
-                if (visible)
-                {
-                    UpdatePointer();
+			if ( visible )
+			{
+				UpdatePointer();
 
-                    if (meshFading)
-                    {
-                        UpdateTeleportColors();
-                    }
+				if ( meshFading )
+				{
+					UpdateTeleportColors();
+				}
 
-                    if (onActivateObjectTransform.gameObject.activeSelf && Time.time - pointerShowStartTime > activateObjectTime)
-                    {
-                        onActivateObjectTransform.gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    if (onDeactivateObjectTransform.gameObject.activeSelf && Time.time - pointerHideStartTime > deactivateObjectTime)
-                    {
-                        onDeactivateObjectTransform.gameObject.SetActive(false);
-                    }
-                }
-            }
-			
+				if ( onActivateObjectTransform.gameObject.activeSelf && Time.time - pointerShowStartTime > activateObjectTime )
+				{
+					onActivateObjectTransform.gameObject.SetActive( false );
+				}
+			}
+			else
+			{
+				if ( onDeactivateObjectTransform.gameObject.activeSelf && Time.time - pointerHideStartTime > deactivateObjectTime )
+				{
+					onDeactivateObjectTransform.gameObject.SetActive( false );
+				}
+			}
 		}
 
 

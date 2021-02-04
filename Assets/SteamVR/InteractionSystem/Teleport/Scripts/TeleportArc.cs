@@ -52,18 +52,14 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         void Update()
         {
-            if (Teleport.instance.pizdec)
-            {
-                scale = Player.instance.transform.lossyScale.x;
-                if (thickness != prevThickness || segmentCount != prevSegmentCount)
-                {
-                    CreateLineRendererObjects();
-                    prevThickness = thickness;
-                    prevSegmentCount = segmentCount;
-                }
-            }
             //scale arc to match player scale
-            
+            scale = Player.instance.transform.lossyScale.x;
+            if (thickness != prevThickness || segmentCount != prevSegmentCount)
+            {
+                CreateLineRendererObjects();
+                prevThickness = thickness;
+                prevSegmentCount = segmentCount;
+            }
         }
 
 
