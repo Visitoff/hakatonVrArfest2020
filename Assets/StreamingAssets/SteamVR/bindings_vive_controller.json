@@ -309,7 +309,7 @@
    "category" : "steamvr_input",
    "controller_type" : "vive_controller",
    "description" : "",
-   "name" : "Мои настройки VrArfest [Testing] для Vive Controller",
+   "name" : "vive_controller",
    "options" : {},
    "simulated_actions" : []
 }
