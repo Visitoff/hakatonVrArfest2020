@@ -6,9 +6,8 @@ using Photon.Realtime;
 
 public class NetworkManager2 : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    GameObject cam;
-    
+
+
     [SerializeField]
     GameObject headPrefab;
     [SerializeField]
@@ -17,12 +16,13 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     GameObject TeleportPoint;
     [SerializeField]
     GameObject rightHandPrefab;
+    [SerializeField]
     GameObject localPlayerPrefab;
     GameObject netPlayerPrefab;
     float a = 1;
     float timeToSpawnPlayer;
     bool isTimeToSpawn;
-   public bool isNeedtoSpawn;
+    public bool isNeedtoSpawn;
     private void Awake()
     {
         TeleportPoint.SetActive(false);
@@ -49,15 +49,15 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        
-        localPlayerPrefab = new GameObject("Player");
+
+
         netPlayerPrefab = new GameObject("NetPlayer");
         GameObject Head = PhotonNetwork.Instantiate(headPrefab.name, ViveController.Instance.head.transform.position, ViveController.Instance.head.transform.rotation, 0);
         GameObject RHand = PhotonNetwork.Instantiate(rightHandPrefab.name, ViveController.Instance.leftHand.transform.position, ViveController.Instance.leftHand.transform.rotation, 0);
         GameObject LHand = PhotonNetwork.Instantiate(leftHandPrefab.name, ViveController.Instance.rightHand.transform.position, ViveController.Instance.rightHand.transform.rotation, 0);
         switch (a)
         {
-                  
+
             case 1:
                 Debug.Log("Joined Room");
                 Head.GetComponent<Valve.VR.InteractionSystem.Player>().trackingOriginTransform = localPlayerPrefab.transform;
@@ -76,7 +76,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
         StartCoroutine(enumerator(Head));
         a++;
         isTimeToSpawn = true;
-       
+
     }
     IEnumerator enumerator(GameObject Head)
     {
