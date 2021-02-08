@@ -414,6 +414,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snap Turn
       objectReference: {fileID: 0}
+    - target: {fileID: 3292649098983383305, guid: 0000bd64708608040a4bcafbd3a1409c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3295630615809298939, guid: 0000bd64708608040a4bcafbd3a1409c,
         type: 3}
       propertyPath: m_LocalPosition.x

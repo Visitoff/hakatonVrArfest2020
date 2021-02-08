@@ -96,7 +96,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
         }
         if (timeToSpawnPlayer > 5f)
         {
-            TeleportPoint.SetActive(true);
+            TeleportPoint.SetActive(false);
         }
     }
 }
