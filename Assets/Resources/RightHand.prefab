@@ -62,10 +62,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058139709, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058139709, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058139709, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058147503, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0488
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058147503, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290058147503, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0768
+      objectReference: {fileID: 0}
     - target: {fileID: 2487442290058334539, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
         type: 3}
       propertyPath: m_Name
       value: RightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487442290064856393, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: renderModelPrefab
+      value: 
+      objectReference: {fileID: 1000012617731570, guid: 837f93beb9a614743ae3a2c0ada7c388,
+        type: 3}
+    - target: {fileID: 2526565513090424067, guid: 1ffed3568ffa36c4eade02cfcb9c5792,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffed3568ffa36c4eade02cfcb9c5792, type: 3}

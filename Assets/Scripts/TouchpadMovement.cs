@@ -7,10 +7,14 @@ using Valve.VR.InteractionSystem;
 
 public class TouchpadMovement : MonoBehaviour
 {
+
+    [SerializeField]
+    Transform cam;
     [SerializeField]
     CharacterController controller;
     Vector2 mov;
     bool timeToMove;
+        public SteamVR_Action_Boolean trackPadTouch = SteamVR_Actions.default_toucgaptouch;
     private void Start()
     {
            StartCoroutine(enumerator());
@@ -21,15 +25,23 @@ public class TouchpadMovement : MonoBehaviour
     }
     void Movement()
     {
-        if (timeToMove)
+        if (timeToMove && trackPadTouch.GetState(SteamVR_Input_Sources.RightHand))
         {
-             mov = SteamVR_Input.GetVector2("touchpadtouch", SteamVR_Input_Sources.RightHand);
-               controller.Move(mov * 10f);
+            
+            Vector2 mov = SteamVR_Input.GetVector2("touchpadposition", SteamVR_Input_Sources.RightHand);
+            Debug.LogFormat("Touch position = {0}", mov);
+            float movX = mov.x * Time.deltaTime;
+            float movY = mov.y * Time.deltaTime;
+            Vector3 playerMovement = transform.right * movX + cam.transform.forward * movY;
+            playerMovement += Physics.gravity;
+            playerMovement = playerMovement * 5f;
+            controller.Move(playerMovement);
+
         }
     }
     IEnumerator enumerator()
     {
-      yield return new WaitForSeconds(10f);
+      yield return new WaitForSeconds(5f);
       timeToMove = true;
      }
 }

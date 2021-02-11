@@ -4,6 +4,10 @@
    "app_key" : "application.generated.unity.vrarfest.exe",
    "bindings" : {
       "/actions/buggy" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
          "sources" : [
             {
                "inputs" : {
@@ -246,7 +250,10 @@
             {
                "inputs" : {
                   "position" : {
-                     "output" : "/actions/default/in/touchpadtouch"
+                     "output" : "/actions/default/in/touchpadposition"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/toucgaptouch"
                   }
                },
                "mode" : "trackpad",
@@ -255,7 +262,10 @@
             {
                "inputs" : {
                   "position" : {
-                     "output" : "/actions/default/in/touchpadtouch"
+                     "output" : "/actions/default/in/touchpadposition"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/toucgaptouch"
                   }
                },
                "mode" : "trackpad",
@@ -264,6 +274,10 @@
          ]
       },
       "/actions/platformer" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
          "sources" : [
             {
                "inputs" : {

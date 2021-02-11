@@ -50,9 +50,14 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/touchpadtouch",
+      "name": "/actions/default/in/touchpadposition",
       "type": "vector2",
       "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/default/in/toucgaptouch",
+      "type": "boolean",
+      "requirement": "optional"
     },
     {
       "name": "/actions/default/out/Haptic",
