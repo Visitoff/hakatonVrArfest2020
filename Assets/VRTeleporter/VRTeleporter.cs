@@ -36,6 +36,7 @@ public class VRTeleporter : MonoBehaviour
 
 
     // Teleport target transform to ground position
+    
     public void Teleport()
     {
         if (groundDetected)

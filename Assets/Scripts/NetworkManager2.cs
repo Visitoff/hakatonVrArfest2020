@@ -65,6 +65,9 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
                 RHand.transform.SetParent(localPlayerPrefab.transform, true);
                 LHand.transform.SetParent(localPlayerPrefab.transform, true);
                 localPlayerPrefab.tag = string.Format("Player");
+                Head.tag = string.Format("avatar");
+                GameObject teleporter = GameObject.FindGameObjectWithTag("teleporter");
+                teleporter.transform.SetParent(RHand.transform, false);
                 break;
             case 2:
                 Head.transform.SetParent(netPlayerPrefab.transform, true);
@@ -80,7 +83,7 @@ public class NetworkManager2 : MonoBehaviourPunCallbacks
     }
     IEnumerator enumerator(GameObject Head)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(6f);
         Head.transform.SetParent(localPlayerPrefab.transform, true);
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)

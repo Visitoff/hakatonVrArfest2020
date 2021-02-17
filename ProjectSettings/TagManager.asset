@@ -22,6 +22,8 @@ TagManager:
   - exam
   - param
   - param2
+  - avatar
+  - teleporter
   layers:
   - Default
   - TransparentFX
